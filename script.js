@@ -263,37 +263,69 @@ async function viewFile(id) {
   const f = await getFileFromDB(id);
   if (!f) return;
 
+  // Remove old modal
+  const old = document.getElementById('file-viewer-modal');
+  if (old) old.remove();
+
+  const isImg = f.fileType && f.fileType.startsWith('image/');
+  const isPdf = f.fileType && f.fileType.includes('pdf');
+
+  // Build blob URL
+  let blobUrl = f.data; // fallback to base64
   try {
-    // Convert base64 to Blob
     const parts = f.data.split(',');
-    const mime = f.fileType || 'application/octet-stream';
     const byteStr = atob(parts[1] || parts[0]);
     const ab = new ArrayBuffer(byteStr.length);
     const ia = new Uint8Array(ab);
     for (let i = 0; i < byteStr.length; i++) ia[i] = byteStr.charCodeAt(i);
-    const blob = new Blob([ab], { type: mime });
-    const blobUrl = URL.createObjectURL(blob);
+    const blob = new Blob([ab], { type: f.fileType || 'application/octet-stream' });
+    blobUrl = URL.createObjectURL(blob);
+  } catch(e) {}
 
-    if (f.fileType && f.fileType.startsWith('image/')) {
-      // Image — open in new tab with styled page
-      const newTab = window.open('', '_blank');
-      if (!newTab) { showToast('❌ Popup blocked! Allow popups.'); return; }
-      newTab.document.write(`<!DOCTYPE html><html><head><title>${f.name}</title>
-        <style>body{margin:0;background:#111;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:sans-serif}
-        img{max-width:100%;max-height:90vh;object-fit:contain;border-radius:8px}
-        p{color:#888;font-size:13px;margin-top:12px}</style></head>
-        <body><img src="${blobUrl}" alt="${f.name}"><p>${f.name}</p></body></html>`);
-      newTab.document.close();
-    } else {
-      // PDF — use blob URL, Chrome allows this
-      window.open(blobUrl, '_blank');
-    }
-    showToast('👁 Opening: ' + f.name);
-    // Revoke after delay
-    setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
-  } catch(err) {
-    showToast('❌ Could not open file.');
+  const modal = document.createElement('div');
+  modal.id = 'file-viewer-modal';
+  modal.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.95);display:flex;flex-direction:column;align-items:center;padding:14px;gap:10px;';
+
+  const header = document.createElement('div');
+  header.style.cssText = 'width:100%;max-width:960px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;';
+  header.innerHTML = `
+    <span style="color:#e8e8f0;font-weight:700;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:65%">📄 ${f.name}</span>
+    <div style="display:flex;gap:8px">
+      <button id="dl-from-viewer" style="background:rgba(67,233,123,0.12);border:1px solid rgba(67,233,123,0.35);color:#43e97b;padding:6px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600">⬇ Download</button>
+      <button id="close-viewer" style="background:rgba(255,101,132,0.15);border:1px solid rgba(255,101,132,0.4);color:#ff6584;padding:6px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600">✕ Close</button>
+    </div>`;
+
+  const content = document.createElement('div');
+  content.style.cssText = 'width:100%;max-width:960px;flex:1;min-height:0;border-radius:10px;overflow:hidden;';
+
+  if (isPdf) {
+    const embed = document.createElement('embed');
+    embed.src = blobUrl;
+    embed.type = 'application/pdf';
+    embed.style.cssText = 'width:100%;height:100%;min-height:75vh;border:none;';
+    content.appendChild(embed);
+  } else if (isImg) {
+    content.style.cssText += 'display:flex;align-items:center;justify-content:center;';
+    const img = document.createElement('img');
+    img.src = blobUrl;
+    img.style.cssText = 'max-width:100%;max-height:75vh;object-fit:contain;border-radius:8px;';
+    content.appendChild(img);
+  } else {
+    content.innerHTML = `<div style="color:#8888a0;text-align:center;padding:60px;font-size:14px">Preview not available.<br><br>Please use Download button.</div>`;
   }
+
+  modal.appendChild(header);
+  modal.appendChild(content);
+  document.body.appendChild(modal);
+
+  document.getElementById('close-viewer').onclick = () => {
+    modal.remove();
+    URL.revokeObjectURL(blobUrl);
+  };
+  document.getElementById('dl-from-viewer').onclick = () => downloadFile(id);
+  modal.addEventListener('click', e => { if (e.target === modal) { modal.remove(); URL.revokeObjectURL(blobUrl); } });
+
+  showToast('👁 ' + f.name);
 }
 
 // ===== RENDER SEMESTER DETAIL =====
