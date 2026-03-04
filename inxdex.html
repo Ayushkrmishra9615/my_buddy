@@ -4,9 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Buddy — College Notes</title>
-
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
 
@@ -69,32 +68,16 @@
       </div>
     </div>
 
-    <div class="section-title">Quick Access — Semesters</div>
+    <div class="section-title">Quick Access — All Semesters</div>
     <div class="sem-grid">
-      <div class="sem-card s1" onclick="openSem(1)">
-        <div class="sem-icon">🌱</div>
-        <div class="sem-name">Semester 1</div>
-        <div class="sem-info">5 subjects · 18 files</div>
-        <div class="sem-tags"><span class="tag">Maths</span><span class="tag">Physics</span><span class="tag">CS101</span></div>
-      </div>
-      <div class="sem-card s2" onclick="openSem(2)">
-        <div class="sem-icon">🔥</div>
-        <div class="sem-name">Semester 2</div>
-        <div class="sem-info">5 subjects · 22 files</div>
-        <div class="sem-tags"><span class="tag">Data Struct</span><span class="tag">Maths-2</span><span class="tag">Chemistry</span></div>
-      </div>
-      <div class="sem-card s3" onclick="openSem(3)">
-        <div class="sem-icon">⚡</div>
-        <div class="sem-name">Semester 3</div>
-        <div class="sem-info">6 subjects · 25 files</div>
-        <div class="sem-tags"><span class="tag">OOPS</span><span class="tag">Algorithms</span><span class="tag">Digital</span></div>
-      </div>
-      <div class="sem-card s4" onclick="openSem(4)">
-        <div class="sem-icon">💡</div>
-        <div class="sem-name">Semester 4</div>
-        <div class="sem-info">6 subjects · 28 files</div>
-        <div class="sem-tags"><span class="tag">OS</span><span class="tag">DBMS</span><span class="tag">Networks</span></div>
-      </div>
+      <div class="sem-card s1" onclick="openSem(1)"><div class="sem-icon">🌱</div><div class="sem-name">Semester 1</div><div class="sem-info">5 subjects</div><div class="sem-tags"><span class="tag">Maths</span><span class="tag">Physics</span><span class="tag">CS101</span></div></div>
+      <div class="sem-card s2" onclick="openSem(2)"><div class="sem-icon">🔥</div><div class="sem-name">Semester 2</div><div class="sem-info">5 subjects</div><div class="sem-tags"><span class="tag">Data Struct</span><span class="tag">Maths-2</span><span class="tag">Chemistry</span></div></div>
+      <div class="sem-card s3" onclick="openSem(3)"><div class="sem-icon">⚡</div><div class="sem-name">Semester 3</div><div class="sem-info">5 subjects</div><div class="sem-tags"><span class="tag">OOPS</span><span class="tag">Algorithms</span><span class="tag">Digital</span></div></div>
+      <div class="sem-card s4" onclick="openSem(4)"><div class="sem-icon">💡</div><div class="sem-name">Semester 4</div><div class="sem-info">5 subjects</div><div class="sem-tags"><span class="tag">OS</span><span class="tag">DBMS</span><span class="tag">Networks</span></div></div>
+      <div class="sem-card s5" onclick="openSem(5)"><div class="sem-icon">🚀</div><div class="sem-name">Semester 5</div><div class="sem-info">5 subjects</div><div class="sem-tags"><span class="tag">ML</span><span class="tag">Compiler</span><span class="tag">Web Tech</span></div></div>
+      <div class="sem-card s6" onclick="openSem(6)"><div class="sem-icon">🎯</div><div class="sem-name">Semester 6</div><div class="sem-info">5 subjects</div><div class="sem-tags"><span class="tag">AI</span><span class="tag">Cloud</span><span class="tag">Security</span></div></div>
+      <div class="sem-card s7" onclick="openSem(7)"><div class="sem-icon">🌐</div><div class="sem-name">Semester 7</div><div class="sem-info">5 subjects</div><div class="sem-tags"><span class="tag">Project</span><span class="tag">IoT</span><span class="tag">Big Data</span></div></div>
+      <div class="sem-card s8" onclick="openSem(8)"><div class="sem-icon">🏆</div><div class="sem-name">Semester 8</div><div class="sem-info">4 subjects</div><div class="sem-tags"><span class="tag">Thesis</span><span class="tag">Seminar</span><span class="tag">Elective IV</span></div></div>
     </div>
   </div>
 
@@ -118,7 +101,7 @@
     <button class="back-btn" onclick="goBack()">← Back to Semesters</button>
     <div class="sem-detail-header">
       <h2 id="sem-detail-title">Semester 1</h2>
-      <p style="color:var(--muted);font-size:14px;">Click on any material to preview or download</p>
+      <p style="color:var(--muted);font-size:14px;">Upload files or click ⬇ to download</p>
     </div>
     <div class="subjects-grid" id="subjects-container"></div>
   </div>
@@ -137,6 +120,7 @@
       <button class="filter-btn" onclick="setFilter('pdf', this)">📄 PDFs</button>
       <button class="filter-btn" onclick="setFilter('ppt', this)">📊 Slides</button>
       <button class="filter-btn" onclick="setFilter('doc', this)">📝 Docs</button>
+      <button class="filter-btn" onclick="setFilter('img', this)">🖼 Images</button>
     </div>
 
     <div class="materials-table">
@@ -168,7 +152,7 @@
         <h3>📬 Contact</h3>
         <p>Have notes to share or found an issue?</p>
         <div class="contact-info">
-          <div class="contact-row"><span>📧</span><span>ayushkr1660@gmail.com</span></div>
+          <div class="contact-row"><span>📧</span><span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6c0d15191f04071e5d5a5a5c2c0b010d0500420f0301">[email&#160;protected]</a></span></div>
           <div class="contact-row"><span>🏫</span><span>Engineering College</span></div>
           <div class="contact-row"><span>📅</span><span>Batch 2022–2026</span></div>
         </div>
@@ -190,6 +174,5 @@
 <div class="toast" id="toast">✅ Downloaded!</div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
