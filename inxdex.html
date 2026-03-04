@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Buddy — College Notes</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<!-- ===== LOGIN PAGE ===== -->
+<div id="login-page">
+  <div class="login-orb orb1"></div>
+  <div class="login-orb orb2"></div>
+
+  <div class="login-box">
+    <div class="login-logo">📚 My Buddy</div>
+    <div class="login-subtitle">Your college notes, organized beautifully.</div>
+
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" id="email-input" placeholder="Enter your email" autocomplete="email">
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="pass-input" placeholder="Enter your password" autocomplete="current-password">
+      <div class="password-hint">Must contain uppercase, lowercase, number & special character</div>
+    </div>
+
+    <button class="login-btn" onclick="doLogin()">Sign In →</button>
+
+    <div class="error-msg" id="error-msg">⚠️ Invalid credentials. Please try again.</div>
+  </div>
+</div>
+
+<!-- ===== MAIN APP ===== -->
+<div id="main-app">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-logo">📚 My Buddy</div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="showPage('home', this)">Home</button>
+      <button class="nav-tab" onclick="showPage('semesters', this)">Semesters</button>
+      <button class="nav-tab" onclick="showPage('materials', this)">All Materials</button>
+      <button class="nav-tab" onclick="showPage('about', this)">About</button>
+    </div>
+    <div class="nav-right">
+      <div class="user-badge">
+        <div class="user-avatar">AK</div>
+        <span>Ayush</span>
+      </div>
+      <button class="logout-btn" onclick="doLogout()">Logout</button>
+    </div>
+  </nav>
+
+  <!-- HOME PAGE -->
+  <div class="page active" id="page-home">
+    <div class="hero">
+      <h1>Welcome back,<br><span>Ayush! 👋</span></h1>
+      <p>Access all your semester notes, PDFs, and study materials in one clean, organized place.</p>
+      <div class="stats-row">
+        <div class="stat"><span class="stat-num">8</span><span class="stat-label">Semesters</span></div>
+        <div class="stat"><span class="stat-num">40+</span><span class="stat-label">Subjects</span></div>
+        <div class="stat"><span class="stat-num">120+</span><span class="stat-label">Materials</span></div>
+      </div>
+    </div>
+
+    <div class="section-title">Quick Access — Semesters</div>
+    <div class="sem-grid">
+      <div class="sem-card s1" onclick="openSem(1)">
+        <div class="sem-icon">🌱</div>
+        <div class="sem-name">Semester 1</div>
+        <div class="sem-info">5 subjects · 18 files</div>
+        <div class="sem-tags"><span class="tag">Maths</span><span class="tag">Physics</span><span class="tag">CS101</span></div>
+      </div>
+      <div class="sem-card s2" onclick="openSem(2)">
+        <div class="sem-icon">🔥</div>
+        <div class="sem-name">Semester 2</div>
+        <div class="sem-info">5 subjects · 22 files</div>
+        <div class="sem-tags"><span class="tag">Data Struct</span><span class="tag">Maths-2</span><span class="tag">Chemistry</span></div>
+      </div>
+      <div class="sem-card s3" onclick="openSem(3)">
+        <div class="sem-icon">⚡</div>
+        <div class="sem-name">Semester 3</div>
+        <div class="sem-info">6 subjects · 25 files</div>
+        <div class="sem-tags"><span class="tag">OOPS</span><span class="tag">Algorithms</span><span class="tag">Digital</span></div>
+      </div>
+      <div class="sem-card s4" onclick="openSem(4)">
+        <div class="sem-icon">💡</div>
+        <div class="sem-name">Semester 4</div>
+        <div class="sem-info">6 subjects · 28 files</div>
+        <div class="sem-tags"><span class="tag">OS</span><span class="tag">DBMS</span><span class="tag">Networks</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEMESTERS PAGE -->
+  <div class="page" id="page-semesters">
+    <div class="section-title">All Semesters</div>
+    <div class="sem-grid">
+      <div class="sem-card s1" onclick="openSem(1)"><div class="sem-icon">🌱</div><div class="sem-name">Semester 1</div><div class="sem-info">5 subjects · 18 files</div><div class="sem-tags"><span class="tag">Maths</span><span class="tag">Physics</span><span class="tag">CS101</span></div></div>
+      <div class="sem-card s2" onclick="openSem(2)"><div class="sem-icon">🔥</div><div class="sem-name">Semester 2</div><div class="sem-info">5 subjects · 22 files</div><div class="sem-tags"><span class="tag">Data Struct</span><span class="tag">Maths-2</span></div></div>
+      <div class="sem-card s3" onclick="openSem(3)"><div class="sem-icon">⚡</div><div class="sem-name">Semester 3</div><div class="sem-info">6 subjects · 25 files</div><div class="sem-tags"><span class="tag">OOPS</span><span class="tag">Algorithms</span></div></div>
+      <div class="sem-card s4" onclick="openSem(4)"><div class="sem-icon">💡</div><div class="sem-name">Semester 4</div><div class="sem-info">6 subjects · 28 files</div><div class="sem-tags"><span class="tag">OS</span><span class="tag">DBMS</span></div></div>
+      <div class="sem-card s5" onclick="openSem(5)"><div class="sem-icon">🚀</div><div class="sem-name">Semester 5</div><div class="sem-info">5 subjects · 20 files</div><div class="sem-tags"><span class="tag">ML</span><span class="tag">Compiler</span></div></div>
+      <div class="sem-card s6" onclick="openSem(6)"><div class="sem-icon">🎯</div><div class="sem-name">Semester 6</div><div class="sem-info">5 subjects · 18 files</div><div class="sem-tags"><span class="tag">AI</span><span class="tag">Cloud</span></div></div>
+      <div class="sem-card s7" onclick="openSem(7)"><div class="sem-icon">🌐</div><div class="sem-name">Semester 7</div><div class="sem-info">4 subjects · 15 files</div><div class="sem-tags"><span class="tag">Project</span><span class="tag">Elective</span></div></div>
+      <div class="sem-card s8" onclick="openSem(8)"><div class="sem-icon">🏆</div><div class="sem-name">Semester 8</div><div class="sem-info">3 subjects · 10 files</div><div class="sem-tags"><span class="tag">Thesis</span><span class="tag">Seminar</span></div></div>
+    </div>
+  </div>
+
+  <!-- SEMESTER DETAIL PAGE -->
+  <div class="page" id="page-sem-detail">
+    <button class="back-btn" onclick="goBack()">← Back to Semesters</button>
+    <div class="sem-detail-header">
+      <h2 id="sem-detail-title">Semester 1</h2>
+      <p style="color:var(--muted);font-size:14px;">Click on any material to preview or download</p>
+    </div>
+    <div class="subjects-grid" id="subjects-container"></div>
+  </div>
+
+  <!-- MATERIALS PAGE -->
+  <div class="page" id="page-materials">
+    <div class="section-title">All Study Materials</div>
+
+    <div class="search-bar">
+      <span>🔍</span>
+      <input type="text" placeholder="Search notes, PDFs, subjects..." oninput="filterMaterials(this.value)">
+    </div>
+
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="setFilter('all', this)">All Files</button>
+      <button class="filter-btn" onclick="setFilter('pdf', this)">📄 PDFs</button>
+      <button class="filter-btn" onclick="setFilter('ppt', this)">📊 Slides</button>
+      <button class="filter-btn" onclick="setFilter('doc', this)">📝 Docs</button>
+    </div>
+
+    <div class="materials-table">
+      <div class="table-header">
+        <div>File Name</div>
+        <div>Semester</div>
+        <div>Subject</div>
+        <div>Size</div>
+        <div>Action</div>
+      </div>
+      <div id="materials-list"></div>
+    </div>
+  </div>
+
+  <!-- ABOUT PAGE -->
+  <div class="page" id="page-about">
+    <div class="section-title">About My Buddy</div>
+    <div style="max-width:700px">
+      <p style="color:var(--muted);font-size:16px;line-height:1.8;margin-bottom:32px;">
+        StudyVault is your personal college study companion — a centralized hub for all your semester notes, PDFs, slides, and reference materials. Built to keep you organized and focused.
+      </p>
+    </div>
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>📖 About This Portal</h3>
+        <p>My Buddy is designed for students to access semester-wise study materials, notes, and resources at any time from anywhere. All materials are organized by semester and subject for easy navigation.</p>
+      </div>
+      <div class="about-card">
+        <h3>📬 Contact</h3>
+        <p>Have notes to share or found an issue?</p>
+        <div class="contact-info">
+          <div class="contact-row"><span>📧</span><span>ayushkr1660@gmail.com</span></div>
+          <div class="contact-row"><span>🏫</span><span>Engineering College</span></div>
+          <div class="contact-row"><span>📅</span><span>Batch 2022–2026</span></div>
+        </div>
+      </div>
+      <div class="about-card">
+        <h3>🔐 Access Policy</h3>
+        <p>This portal is private and accessible only with authorized credentials. Please do not share your login details. All materials are for personal academic use only.</p>
+      </div>
+      <div class="about-card">
+        <h3>🛠️ Features</h3>
+        <p>✔ Semester-wise organization<br>✔ PDF & slide access<br>✔ Subject-level filtering<br>✔ Search across all materials<br>✔ Secure login system</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">✅ Downloaded!</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
