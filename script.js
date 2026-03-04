@@ -262,7 +262,17 @@ async function viewFile(id) {
   if (!db) await initDB();
   const f = await getFileFromDB(id);
   if (!f) return;
-  openViewer(f.data, f.name, f.fileType);
+  // Open in new tab directly
+  const newTab = window.open();
+  if (!newTab) { showToast('❌ Popup blocked! Allow popups for this site.'); return; }
+  if (f.fileType && f.fileType.startsWith('image/')) {
+    newTab.document.write(`<!DOCTYPE html><html><head><title>${f.name}</title><style>body{margin:0;background:#111;display:flex;align-items:center;justify-content:center;min-height:100vh}img{max-width:100%;max-height:100vh;object-fit:contain}</style></head><body><img src="${f.data}" alt="${f.name}"></body></html>`);
+    newTab.document.close();
+  } else {
+    // PDF — set location directly to base64 data URL
+    newTab.location.href = f.data;
+  }
+  showToast('👁 Opening in new tab...');
 }
 
 // ===== RENDER SEMESTER DETAIL =====
