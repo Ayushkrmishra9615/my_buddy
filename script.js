@@ -3,8 +3,8 @@
 // ⚡ SUPABASE CONFIG — Apni keys yahan daalo
 // Supabase → Settings → API se copy karo
 // ===================================================
-const SUPABASE_URL = 'https://sbihwyorstccwghajoqe.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_jQpeY5lYF5k4OOOKjXckYA_qphFiW_q';
+const SUPABASE_URL = 'https://adudcbaalzszlbsqeojp.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkdWRjYmFhbHpzemxic3Flb2pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MDc3NDEsImV4cCI6MjA4ODM4Mzc0MX0.P-CZw6jukkoQnCA_iyi1mtb97sCtW3HGoVSOx4zuuzQ';
 const BUCKET = 'materials';
 
 // Supabase API helpers
