@@ -112,7 +112,23 @@ document.addEventListener('DOMContentLoaded', () => {
   if (sessionStorage.getItem('isLoggedIn') === 'true') {
     document.getElementById('login-page').style.display = 'none';
     document.getElementById('main-app').style.display = 'block';
-    renderMaterials();
+
+    // Same page restore karo
+    const savedPage = sessionStorage.getItem('currentPage') || 'home';
+    const savedSem = sessionStorage.getItem('currentSem');
+
+    if (savedPage === 'sem-detail' && savedSem) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-sem-detail').classList.add('active');
+      renderSemDetail(parseInt(savedSem));
+    } else {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + savedPage).classList.add('active');
+      const tabMap = { home: 0, semesters: 1, materials: 2, about: 3 };
+      const tabs = document.querySelectorAll('.nav-tab');
+      if (tabMap[savedPage] !== undefined) tabs[tabMap[savedPage]].classList.add('active');
+      if (savedPage === 'materials') renderMaterials();
+    }
   }
 });
 
@@ -129,12 +145,26 @@ function doLogout() {
 let currentPage = 'home';
 let prevPage = 'semesters';
 
+function setMobileNav(btn) {
+  document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
 function showPage(name, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   if (btn) btn.classList.add('active');
   currentPage = name;
+  sessionStorage.setItem('currentPage', name);
+  sessionStorage.removeItem('currentSem');
+
+  // Sync mobile nav
+  const mobileMap = { home: 0, semesters: 1, materials: 2, about: 3 };
+  const mobileBtns = document.querySelectorAll('.mobile-nav-btn');
+  mobileBtns.forEach(b => b.classList.remove('active'));
+  if (mobileMap[name] !== undefined) mobileBtns[mobileMap[name]].classList.add('active');
+
   if (name === 'materials') renderMaterials();
 }
 
@@ -143,6 +173,9 @@ function openSem(n) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-sem-detail').classList.add('active');
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
+  sessionStorage.setItem('currentPage', 'sem-detail');
+  sessionStorage.setItem('currentSem', n);
   renderSemDetail(n);
 }
 
@@ -581,3 +614,23 @@ function showToast(msg) {
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
 }
+
+
+
+function toggleUserMenu(){
+const menu = document.getElementById("user-dropdown");
+
+if(menu.style.display === "block"){
+menu.style.display = "none";
+} else {
+menu.style.display = "block";
+}
+}
+
+document.addEventListener("click", function(e){
+const menu = document.querySelector(".user-menu");
+
+if(!menu.contains(e.target)){
+document.getElementById("user-dropdown").style.display = "none";
+}
+});

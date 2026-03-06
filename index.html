@@ -48,12 +48,21 @@
       <button class="nav-tab" onclick="showPage('about', this)">About</button>
     </div>
     <div class="nav-right">
-      <div class="user-badge">
-        <div class="user-avatar">AK</div>
-        <span>Ayush</span>
-      </div>
-      <button class="logout-btn" onclick="doLogout()">Logout</button>
+
+  <div class="user-menu">
+
+    <div class="user-badge" onclick="toggleUserMenu()">
+      <div class="user-avatar">AK</div>
+      <span>Ayush</span>
     </div>
+
+    <div class="user-dropdown" id="user-dropdown">
+      <button onclick="doLogout()">🚪 Logout</button>
+    </div>
+
+  </div>
+
+</div>
   </nav>
 
   <!-- HOME PAGE -->
@@ -168,6 +177,26 @@
     </div>
   </div>
 
+</div>
+
+<!-- Mobile Bottom Nav -->
+<div class="mobile-bottom-nav" id="mobile-bottom-nav">
+  <button class="mobile-nav-btn active" onclick="showPage('home', null); setMobileNav(this)">
+    <span class="mnav-icon">🏠</span>
+    <span class="mnav-label">Home</span>
+  </button>
+  <button class="mobile-nav-btn" onclick="showPage('semesters', null); setMobileNav(this)">
+    <span class="mnav-icon">📅</span>
+    <span class="mnav-label">Semesters</span>
+  </button>
+  <button class="mobile-nav-btn" onclick="showPage('materials', null); setMobileNav(this)">
+    <span class="mnav-icon">📂</span>
+    <span class="mnav-label">Materials</span>
+  </button>
+  <button class="mobile-nav-btn" onclick="showPage('about', null); setMobileNav(this)">
+    <span class="mnav-icon">ℹ️</span>
+    <span class="mnav-label">About</span>
+  </button>
 </div>
 
 <!-- Toast -->
