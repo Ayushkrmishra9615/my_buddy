@@ -1,4 +1,3 @@
-
 // ===================================================
 // ⚡ SUPABASE CONFIG — Apni keys yahan daalo
 // Supabase → Settings → API se copy karo
@@ -90,6 +89,7 @@ function doLogin() {
     errEl.style.display = 'block'; return;
   }
   if (email === VALID_EMAIL && pass === VALID_PASS) {
+    sessionStorage.setItem('isLoggedIn', 'true');
     document.getElementById('login-page').style.display = 'none';
     document.getElementById('main-app').style.display = 'block';
     errEl.style.display = 'none';
@@ -104,10 +104,20 @@ function doLogin() {
 
 document.addEventListener('DOMContentLoaded', () => {
   const passInput = document.getElementById('pass-input');
+  const emailInput = document.getElementById('email-input');
   if (passInput) passInput.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+  if (emailInput) emailInput.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+  // Session check — refresh pe login page nahi aayega
+  if (sessionStorage.getItem('isLoggedIn') === 'true') {
+    document.getElementById('login-page').style.display = 'none';
+    document.getElementById('main-app').style.display = 'block';
+    renderMaterials();
+  }
 });
 
 function doLogout() {
+  sessionStorage.removeItem('isLoggedIn');
   document.getElementById('main-app').style.display = 'none';
   document.getElementById('login-page').style.display = 'flex';
   document.getElementById('email-input').value = '';
